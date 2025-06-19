@@ -705,4 +705,30 @@ html {
 
 .navbar-nav a:hover::after, .navbar-nav a.active::after {
     transform: scaleX(1);
+}
+
+.logo-block {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 70px;
+    background: none;
+}
+
+.header-container {
+    min-width: 340px;
+    gap: 32px;
+}
+
+.footer-contacts {
+    margin-top: 8px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .header-container { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .logo-block { width: 70px; height: 50px; }
 } 
