@@ -1285,4 +1285,14 @@ body {
     .map-container {
         height: 250px;
     }
+}
+
+/* Видаляю важкі анімації секцій, залишаю тільки плавну появу */
+.testimonial-card, .stat-card, .products-grid, .about, .contact, .footer {
+    opacity: 1;
+    transition: opacity 0.7s cubic-bezier(.23,1.01,.32,1);
+}
+
+.animate-in {
+    opacity: 1 !important;
 } 

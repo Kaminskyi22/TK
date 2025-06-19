@@ -213,53 +213,33 @@ scrollToTopBtn.style.cssText = `
 
 document.body.appendChild(scrollToTopBtn);
 
-// Оптимізація скролу
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    }
+// Оптимізація зображень (lazy loading для всіх)
+function optimizeImages() {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.onerror = function() {
+            this.style.display = 'none';
+        };
+    });
 }
 
-// Покращена функція скролу
-const optimizedScroll = throttle(() => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollToTopBtn = document.querySelector('.scrollToTopBtn');
-    
-    if (scrollToTopBtn) {
-        if (scrollTop > 300) {
-            scrollToTopBtn.style.display = 'block';
-        } else {
-            scrollToTopBtn.style.display = 'none';
-        }
-    }
-}, 16); // ~60fps
-
-// Додаємо оптимізований скрол
-window.addEventListener('scroll', optimizedScroll, { passive: true });
-
-scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+// Плавна поява секцій (без heavy анімацій)
+function fadeInSections() {
+    const elements = document.querySelectorAll('.testimonial-card, .stat-card, .products-grid, .about, .contact, .footer');
+    elements.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.7s cubic-bezier(.23,1.01,.32,1)';
+        setTimeout(() => {
+            el.style.opacity = '1';
+        }, 200 + i * 100);
     });
-});
+}
 
-// Add hover effect to scroll to top button
-scrollToTopBtn.addEventListener('mouseenter', function() {
-    this.style.background = '#b71c1c';
-    this.style.transform = 'translateY(-3px)';
-});
-
-scrollToTopBtn.addEventListener('mouseleave', function() {
-    this.style.background = '#d32f2f';
-    this.style.transform = 'translateY(0)';
+document.addEventListener('DOMContentLoaded', () => {
+    optimizeImages();
+    fadeInSections();
 });
 
 // Hero carousel logic
@@ -420,21 +400,6 @@ function initInteractiveMap() {
                 }, 3000);
             }
         });
-    });
-}
-
-// Оптимізація зображень
-function optimizeImages() {
-    const images = document.querySelectorAll('img');
-    
-    images.forEach(img => {
-        // Lazy loading для зображень
-        img.loading = 'lazy';
-        
-        // Додаємо error handling
-        img.onerror = function() {
-            this.style.display = 'none';
-        };
     });
 }
 
