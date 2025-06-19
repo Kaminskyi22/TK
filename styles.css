@@ -957,7 +957,8 @@ html {
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     margin-bottom: 0.5rem;
-    animation: pulse 2s infinite;
+    animation: pulse 2s infinite, glow 3s ease-in-out infinite alternate;
+    transition: all 0.3s ease;
 }
 
 .counter-label {
@@ -967,12 +968,36 @@ html {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
+    position: relative;
+}
+
+.counter-label::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    animation: expand 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
+}
+
+@keyframes glow {
+    from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.3); }
+    to { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.6); }
+}
+
+@keyframes expand {
+    0% { width: 0; }
+    50% { width: 100px; }
+    100% { width: 0; }
 }
 
 /* Адаптивність для лічильника */

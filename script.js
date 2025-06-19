@@ -304,24 +304,31 @@ scrollToTopBtn.addEventListener('mouseleave', function() {
   });
 })();
 
-// Анімація лічильника поставок
+// Анімація лічильника поставок з часовим зростанням
 function animateCounter() {
     const counter = document.getElementById('wholesale-counter');
     if (!counter) return;
     
-    const target = 1250; // Цільове число поставок
-    const duration = 3000; // Тривалість анімації в мс
-    const step = target / (duration / 16); // 60 FPS
-    let current = 0;
+    // Базове число поставок на початок 2024 року
+    const baseDate = new Date('2024-01-01').getTime();
+    const currentDate = new Date().getTime();
+    const daysPassed = Math.floor((currentDate - baseDate) / (1000 * 60 * 60 * 24));
     
-    const timer = setInterval(() => {
-        current += step;
-        if (current >= target) {
-            current = target;
-            clearInterval(timer);
-        }
+    // Середня кількість поставок на день (приблизно 3-4)
+    const baseCount = 1000 + (daysPassed * 3.5);
+    let current = Math.floor(baseCount);
+    
+    // Оновлюємо лічильник кожну секунду
+    const updateCounter = () => {
+        current += 0.1; // Додаємо 0.1 поставки кожну секунду
         counter.textContent = Math.floor(current).toLocaleString();
-    }, 16);
+    };
+    
+    // Запускаємо оновлення кожну секунду
+    const interval = setInterval(updateCounter, 1000);
+    
+    // Зберігаємо інтервал для можливого зупинення
+    counter.dataset.interval = interval;
 }
 
 // Запуск анімації лічильника при скролі
