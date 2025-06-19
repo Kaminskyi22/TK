@@ -230,17 +230,23 @@ function optimizeImages() {
         img.removeAttribute('loading');
         img.decoding = 'async';
         img.onerror = function() {
-            this.src = '';
-            this.style.display = 'none';
             if (this.parentElement && this.parentElement.classList.contains('product-image')) {
                 this.parentElement.classList.add('no-image');
             }
+            this.style.display = 'none';
         };
-        // Якщо зображення вже не завантажилось (наприклад, 404), одразу додаємо клас
-        if (!img.complete || img.naturalWidth === 0) {
+        img.onload = function() {
+            if (this.parentElement && this.parentElement.classList.contains('product-image')) {
+                this.parentElement.classList.remove('no-image');
+            }
+            this.style.display = '';
+        };
+        // Якщо зображення вже не завантажилось (наприклад, 404), додаємо клас
+        if (img.complete && img.naturalWidth === 0) {
             if (img.parentElement && img.parentElement.classList.contains('product-image')) {
                 img.parentElement.classList.add('no-image');
             }
+            img.style.display = 'none';
         }
     });
 }
