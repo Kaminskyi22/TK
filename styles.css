@@ -407,29 +407,38 @@ body {
 
 .contact-info {
     display: grid;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .contact-item {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.2rem;
+    padding: 0.7rem 0;
+    border: none;
 }
 
 .contact-item i {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    margin-top: 0.2rem;
+    font-size: 1.7rem;
+    color: #d32f2f;
+    min-width: 2.2rem;
 }
 
 .contact-item h3 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
+    color: #d32f2f;
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
 }
 
-.contact-item p {
-    color: #666;
-    line-height: 1.6;
+.contact-item p, .contact-item a {
+    color: #222;
+    font-size: 1.05rem;
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    color: #b71c1c;
+    text-decoration: underline;
 }
 
 .contact-form {
@@ -485,6 +494,7 @@ body {
     font-weight: 700;
     color: var(--primary-color);
     margin-bottom: 1rem;
+    gap: 18px;
 }
 
 .footer-logo i {
@@ -707,28 +717,28 @@ html {
     transform: scaleX(1);
 }
 
-.logo-block {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 70px;
-    background: none;
+.logo-block, .header-container, .footer-logo { background: none !important; box-shadow: none !important; border: none !important; }
+.header-container { gap: 24px; min-width: unset; }
+.footer-logo { gap: 18px; }
+
+/* Кнопки, секції, іконки */
+.btn, .btn-primary, .btn-secondary, .footer-icon svg, .social-links a {
+    transition: all 0.22s cubic-bezier(.23,1.01,.32,1);
+}
+.btn:active, .btn-primary:active, .btn-secondary:active {
+    transform: scale(0.97);
+}
+.footer-icon svg:hover, .social-links a:hover {
+    transform: scale(1.13) translateY(-2px);
+    filter: brightness(1.2);
 }
 
-.header-container {
-    min-width: 340px;
-    gap: 32px;
-}
+/* Вирівнювання секцій */
+.section-title { margin-bottom: 2.2rem; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-.footer-contacts {
-    margin-top: 8px;
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
+/* Прибираю зайві стилі для лого */
 @media (max-width: 600px) {
-    .header-container { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .logo-block { width: 70px; height: 50px; }
+    .header-container { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .footer-logo { gap: 10px; }
 } 
