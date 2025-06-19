@@ -1093,7 +1093,7 @@ body {
 .live-stats {
     padding: 5rem 0;
     background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-    color: white;
+    color: #fff;
 }
 
 .stats-grid {
@@ -1106,37 +1106,45 @@ body {
 .stat-card {
     text-align: center;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     transition: all 0.3s ease;
     will-change: transform;
+    color: #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
 .stat-card:hover {
     transform: scale(1.05);
     background: rgba(255, 255, 255, 0.15);
+    color: #fff;
 }
 
 .stat-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
     animation: pulse 2s infinite;
+    color: #fff;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.12));
 }
 
 .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.18), 0 0 2px #fff;
+    color: #fff;
 }
 
 .stat-label {
     font-size: 1rem;
-    opacity: 0.9;
+    opacity: 0.98;
     text-transform: uppercase;
     letter-spacing: 1px;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 
 /* Інтерактивна карта */
