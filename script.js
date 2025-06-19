@@ -213,14 +213,24 @@ scrollToTopBtn.style.cssText = `
 
 document.body.appendChild(scrollToTopBtn);
 
-// Оптимізація зображень (lazy loading для всіх)
+// Оптимізація зображень (lazy loading тільки для hero, fallback для каталогу)
 function optimizeImages() {
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
+    // Hero section
+    const heroImgs = document.querySelectorAll('.hero img');
+    heroImgs.forEach(img => {
         img.loading = 'lazy';
         img.decoding = 'async';
         img.onerror = function() {
-            this.style.display = 'none';
+            this.src = 'https://via.placeholder.com/400x300?text=No+Image';
+        };
+    });
+    // Каталог продукції
+    const catalogImgs = document.querySelectorAll('.products-grid img');
+    catalogImgs.forEach(img => {
+        img.removeAttribute('loading');
+        img.decoding = 'async';
+        img.onerror = function() {
+            this.src = 'https://via.placeholder.com/400x300?text=No+Image';
         };
     });
 }
