@@ -230,8 +230,18 @@ function optimizeImages() {
         img.removeAttribute('loading');
         img.decoding = 'async';
         img.onerror = function() {
-            this.src = 'https://via.placeholder.com/400x300?text=No+Image';
+            this.src = '';
+            this.style.display = 'none';
+            if (this.parentElement && this.parentElement.classList.contains('product-image')) {
+                this.parentElement.classList.add('no-image');
+            }
         };
+        // Якщо зображення вже не завантажилось (наприклад, 404), одразу додаємо клас
+        if (!img.complete || img.naturalWidth === 0) {
+            if (img.parentElement && img.parentElement.classList.contains('product-image')) {
+                img.parentElement.classList.add('no-image');
+            }
+        }
     });
 }
 

@@ -454,8 +454,28 @@ body {
 }
 
 .product-image {
-    height: 250px;
+    background: #f5f5f5;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px 16px 0 0;
+    position: relative;
     overflow: hidden;
+}
+
+.product-image.no-image::after {
+    content: 'Фото відсутнє';
+    color: #b71c1c;
+    font-size: 1.1rem;
+    font-weight: 600;
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+    z-index: 2;
 }
 
 .product-image img {
