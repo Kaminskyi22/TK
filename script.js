@@ -370,4 +370,120 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Анімація статистики в реальному часі
+function animateStats() {
+    const stats = [
+        { id: 'production-counter', target: 2500, suffix: '' },
+        { id: 'delivery-counter', target: 45, suffix: '' },
+        { id: 'satisfaction-counter', target: 98, suffix: '%' },
+        { id: 'experience-counter', target: 15, suffix: '' }
+    ];
+    
+    stats.forEach(stat => {
+        const element = document.getElementById(stat.id);
+        if (!element) return;
+        
+        const target = stat.target;
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            element.textContent = Math.floor(current) + stat.suffix;
+        }, 16);
+    });
+}
+
+// Інтерактивна карта
+function initInteractiveMap() {
+    const mapPoints = document.querySelectorAll('.map-point');
+    
+    mapPoints.forEach(point => {
+        point.addEventListener('click', () => {
+            // Анімація кліку
+            point.style.transform = 'scale(1.8)';
+            setTimeout(() => {
+                point.style.transform = 'scale(1)';
+            }, 200);
+            
+            // Показуємо детальну інформацію
+            const tooltip = point.querySelector('.point-tooltip');
+            if (tooltip) {
+                tooltip.style.opacity = '1';
+                setTimeout(() => {
+                    tooltip.style.opacity = '0';
+                }, 3000);
+            }
+        });
+    });
+}
+
+// Оптимізація зображень
+function optimizeImages() {
+    const images = document.querySelectorAll('img');
+    
+    images.forEach(img => {
+        // Lazy loading для зображень
+        img.loading = 'lazy';
+        
+        // Додаємо error handling
+        img.onerror = function() {
+            this.style.display = 'none';
+        };
+    });
+}
+
+// Покращена продуктивність
+function performanceOptimizations() {
+    // Використовуємо Intersection Observer для анімацій
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                
+                // Запускаємо анімацію статистики
+                if (entry.target.classList.contains('live-stats')) {
+                    animateStats();
+                }
+                
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Спостерігаємо за секціями
+    const sections = document.querySelectorAll('.testimonials, .live-stats, .interactive-map');
+    sections.forEach(section => observer.observe(section));
+}
+
+// Ініціалізація при завантаженні
+document.addEventListener('DOMContentLoaded', () => {
+    optimizeImages();
+    performanceOptimizations();
+    initInteractiveMap();
+    
+    // Додаємо плавну появу елементів
+    const animateElements = document.querySelectorAll('.testimonial-card, .stat-card');
+    animateElements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease';
+        
+        setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }, index * 200);
+    });
+});
+
 console.log('М\'ясна Майстерня - веб-сайт завантажено успішно!'); 
