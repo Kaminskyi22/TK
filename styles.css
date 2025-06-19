@@ -284,8 +284,10 @@ body {
 
 /* About Section */
 .about {
+    position: relative;
     padding: 80px 0;
     background: #fff;
+    overflow: hidden;
 }
 
 .about-content {
@@ -354,6 +356,57 @@ body {
 .stat-label {
     color: #666;
     font-weight: 500;
+}
+
+.about-bg-svg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.about-anim {
+    z-index: 1;
+    opacity: 0.18;
+    filter: blur(0.2px);
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.about-anim.sausage {
+    animation-name: sausageMove;
+}
+
+.about-anim.egg {
+    animation-name: eggMove;
+}
+
+.about-anim.milk {
+    animation-name: milkMove;
+}
+
+@keyframes sausageMove {
+    0% { transform: translateY(0) rotate(-8deg); }
+    50% { transform: translateY(18px) rotate(8deg); }
+    100% { transform: translateY(0) rotate(-8deg); }
+}
+
+@keyframes eggMove {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.08) rotate(8deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes milkMove {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(-8deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+@media (max-width: 900px) {
+    .about-bg-svg svg { display: none; }
+    .about-anim { display: none; }
 }
 
 /* Products Section */
