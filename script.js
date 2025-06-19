@@ -241,4 +241,67 @@ scrollToTopBtn.addEventListener('mouseleave', function() {
     this.style.transform = 'translateY(0)';
 });
 
+// Hero carousel logic
+(function() {
+  const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+  const leftBtn = document.querySelector('.carousel-arrow.left');
+  const rightBtn = document.querySelector('.carousel-arrow.right');
+  const dotsContainer = document.querySelector('.carousel-dots');
+  let current = 0;
+  let interval;
+
+  function showSlide(idx) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === idx);
+    });
+    Array.from(dotsContainer.children).forEach((dot, i) => {
+      dot.classList.toggle('active', i === idx);
+    });
+    current = idx;
+  }
+
+  function nextSlide() {
+    showSlide((current + 1) % slides.length);
+  }
+  function prevSlide() {
+    showSlide((current - 1 + slides.length) % slides.length);
+  }
+
+  // Dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.addEventListener('click', () => showSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+  showSlide(0);
+
+  // Arrows
+  rightBtn.addEventListener('click', nextSlide);
+  leftBtn.addEventListener('click', prevSlide);
+
+  // Autoplay
+  function startAuto() { interval = setInterval(nextSlide, 4000); }
+  function stopAuto() { clearInterval(interval); }
+  startAuto();
+  dotsContainer.addEventListener('mouseenter', stopAuto);
+  dotsContainer.addEventListener('mouseleave', startAuto);
+  rightBtn.addEventListener('mouseenter', stopAuto);
+  rightBtn.addEventListener('mouseleave', startAuto);
+  leftBtn.addEventListener('mouseenter', stopAuto);
+  leftBtn.addEventListener('mouseleave', startAuto);
+
+  // Swipe for mobile
+  let startX = null;
+  document.querySelector('.hero-carousel').addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+  document.querySelector('.hero-carousel').addEventListener('touchend', e => {
+    if (startX === null) return;
+    let dx = e.changedTouches[0].clientX - startX;
+    if (dx > 50) prevSlide();
+    if (dx < -50) nextSlide();
+    startX = null;
+  });
+})();
+
 console.log('М\'ясна Майстерня - веб-сайт завантажено успішно!'); 

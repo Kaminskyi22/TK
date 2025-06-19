@@ -119,35 +119,78 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(120deg, #fff 0%, #fbe9e7 100%);
     min-height: 80vh;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #fff;
+    overflow: hidden;
+    padding: 0;
+}
+
+.hero-carousel {
     position: relative;
+    width: 100vw;
+    min-height: 80vh;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
 }
 
-.hero::before {
-    content: '';
+.carousel-track {
+    display: flex;
+    width: 100vw;
+    height: 100%;
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle at 20% 40%, #ffe0e0 0%, transparent 70%);
-    opacity: 0.7;
+    top: 0; left: 0;
     z-index: 1;
-    pointer-events: none;
-    animation: heroParallax 8s ease-in-out infinite alternate;
 }
 
-@keyframes heroParallax {
-    0% { background-position: 20% 40%; }
-    100% { background-position: 80% 60%; }
+.carousel-slide {
+    min-width: 100vw;
+    height: 80vh;
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(.23,1.01,.32,1);
+    position: absolute;
+    top: 0; left: 0;
+    pointer-events: none;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 2;
+    pointer-events: auto;
+}
+
+.carousel-slide img {
+    width: 100vw;
+    height: 80vh;
+    object-fit: cover;
+    filter: brightness(0.6) saturate(1.1);
+    transition: filter 0.4s;
+}
+
+.carousel-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(120deg, rgba(0,0,0,0.45) 0%, rgba(211,47,47,0.18) 100%);
+    z-index: 3;
+    pointer-events: none;
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 4;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
     animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) both;
+    text-shadow: 0 4px 32px rgba(0,0,0,0.25);
 }
 
 @keyframes fadeInUp {
@@ -158,14 +201,14 @@ body {
 .hero-title {
     font-size: 3.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: #fff;
     margin-bottom: 1.5rem;
     line-height: 1.2;
 }
 
 .hero-subtitle {
     font-size: 1.2rem;
-    color: #666;
+    color: #f3e6d6;
     margin-bottom: 2rem;
     line-height: 1.6;
 }
@@ -174,6 +217,7 @@ body {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .btn, .btn-primary, .btn-secondary {
@@ -775,4 +819,63 @@ html {
 @media (max-width: 600px) {
     .header-container { flex-direction: column; align-items: flex-start; gap: 10px; }
     .footer-logo { gap: 10px; }
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255,255,255,0.7);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    color: #d32f2f;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.carousel-arrow.left { left: 32px; }
+.carousel-arrow.right { right: 32px; }
+.carousel-arrow:hover { background: #fff; color: #b71c1c; }
+
+.carousel-dots {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.carousel-dots button {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: opacity 0.2s, background 0.2s;
+}
+
+.carousel-dots button.active { opacity: 1; background: #d32f2f; }
+
+@media (max-width: 900px) {
+    .hero-title { font-size: 2.2rem; }
+    .carousel-slide, .carousel-slide img, .hero-carousel { height: 60vh; min-height: 60vh; }
+}
+
+@media (max-width: 600px) {
+    .hero-title { font-size: 1.3rem; }
+    .carousel-slide, .carousel-slide img, .hero-carousel { height: 38vh; min-height: 38vh; }
+    .carousel-arrow { width: 36px; height: 36px; font-size: 1.1rem; }
+    .carousel-dots { bottom: 12px; }
 } 
