@@ -1295,4 +1295,11 @@ body {
 
 .animate-in {
     opacity: 1 !important;
+}
+
+.live-stats .section-title {
+    color: #fff !important;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.18), 0 0 2px #fff;
+    letter-spacing: 0.5px;
 } 
