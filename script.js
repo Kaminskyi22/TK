@@ -213,15 +213,36 @@ scrollToTopBtn.style.cssText = `
 
 document.body.appendChild(scrollToTopBtn);
 
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        scrollToTopBtn.style.opacity = '1';
-        scrollToTopBtn.style.visibility = 'visible';
-    } else {
-        scrollToTopBtn.style.opacity = '0';
-        scrollToTopBtn.style.visibility = 'hidden';
+// Оптимізація скролу
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
     }
-});
+}
+
+// Покращена функція скролу
+const optimizedScroll = throttle(() => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollToTopBtn = document.querySelector('.scrollToTopBtn');
+    
+    if (scrollToTopBtn) {
+        if (scrollTop > 300) {
+            scrollToTopBtn.style.display = 'block';
+        } else {
+            scrollToTopBtn.style.display = 'none';
+        }
+    }
+}, 16); // ~60fps
+
+// Додаємо оптимізований скрол
+window.addEventListener('scroll', optimizedScroll, { passive: true });
 
 scrollToTopBtn.addEventListener('click', () => {
     window.scrollTo({

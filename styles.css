@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
 /* Основна кольорова гама */
 :root {
     --primary-color: #d32f2f;
@@ -22,12 +27,17 @@ body {
     color: var(--text-color);
     background: var(--light-bg);
     overflow-x: hidden;
+    /* Покращення продуктивності скролу */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    will-change: transform;
 }
 
 /* Header */
@@ -37,8 +47,11 @@ body {
     width: 100%;
     background: var(--light-bg);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
     box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .navbar {
@@ -117,7 +130,7 @@ body {
     transition: 0.3s;
 }
 
-/* Hero Section */
+/* Hero Section з оптимізованими анімаціями */
 .hero {
     min-height: 80vh;
     position: relative;
@@ -127,6 +140,7 @@ body {
     background: #fff;
     overflow: hidden;
     padding: 0;
+    will-change: transform;
 }
 
 .hero-carousel {
@@ -138,6 +152,7 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    will-change: transform;
 }
 
 .carousel-track {
@@ -147,16 +162,18 @@ body {
     position: absolute;
     top: 0; left: 0;
     z-index: 1;
+    will-change: transform;
 }
 
 .carousel-slide {
     min-width: 100vw;
     height: 80vh;
     opacity: 0;
-    transition: opacity 0.7s cubic-bezier(.23,1.01,.32,1);
+    transition: opacity 0.5s ease;
     position: absolute;
     top: 0; left: 0;
     pointer-events: none;
+    will-change: opacity;
 }
 
 .carousel-slide.active {
@@ -170,7 +187,8 @@ body {
     height: 80vh;
     object-fit: cover;
     filter: brightness(0.6) saturate(1.1);
-    transition: filter 0.4s;
+    transition: filter 0.3s ease;
+    will-change: filter;
 }
 
 .carousel-overlay {
@@ -366,42 +384,43 @@ body {
 }
 
 .about-anim {
-    z-index: 1;
-    opacity: 0.18;
-    filter: blur(0.2px);
-    animation-duration: 7s;
+    position: absolute;
+    opacity: 0.1;
+    z-index: -1;
+    animation-duration: 8s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
+    will-change: transform;
 }
 
 .about-anim.sausage {
     animation-name: sausageMove;
+    will-change: transform;
 }
 
 .about-anim.egg {
     animation-name: eggMove;
+    will-change: transform;
 }
 
 .about-anim.milk {
     animation-name: milkMove;
+    will-change: transform;
 }
 
 @keyframes sausageMove {
-    0% { transform: translateY(0) rotate(-8deg); }
-    50% { transform: translateY(18px) rotate(8deg); }
-    100% { transform: translateY(0) rotate(-8deg); }
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(20px, -15px) rotate(5deg); }
 }
 
 @keyframes eggMove {
-    0% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.08) rotate(8deg); }
-    100% { transform: scale(1) rotate(0deg); }
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-15px, 20px) rotate(-3deg); }
 }
 
 @keyframes milkMove {
-    0% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-18px) rotate(-8deg); }
-    100% { transform: translateY(0) rotate(0deg); }
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(25px, 10px) rotate(2deg); }
 }
 
 @media (max-width: 900px) {
@@ -797,10 +816,6 @@ body {
     }
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 /* Preloader styles */
 #preloader {
     position: fixed;
@@ -943,11 +958,12 @@ html {
     box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
     transform: translateY(0);
     transition: all 0.3s ease;
+    will-change: transform;
 }
 
 .products-counter:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
 }
 
 .counter-number {
@@ -957,8 +973,8 @@ html {
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     margin-bottom: 0.5rem;
-    animation: pulse 2s infinite, glow 3s ease-in-out infinite alternate;
-    transition: all 0.3s ease;
+    animation: pulse 3s infinite;
+    will-change: transform;
 }
 
 .counter-label {
@@ -980,24 +996,23 @@ html {
     width: 0;
     height: 2px;
     background: rgba(255, 255, 255, 0.8);
-    animation: expand 2s ease-in-out infinite;
+    animation: expand 3s ease-in-out infinite;
+    will-change: width;
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
 }
 
 @keyframes glow {
     from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.3); }
-    to { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.6); }
+    to { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 255, 0.5); }
 }
 
 @keyframes expand {
-    0% { width: 0; }
-    50% { width: 100px; }
-    100% { width: 0; }
+    0%, 100% { width: 0; }
+    50% { width: 80px; }
 }
 
 /* Адаптивність для лічильника */
