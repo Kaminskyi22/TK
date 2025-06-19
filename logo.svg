@@ -1,0 +1,8 @@
+<svg width="180" height="60" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="60" rx="16" fill="#fff" stroke="#d32f2f" stroke-width="3"/>
+  <circle cx="40" cy="30" r="18" fill="#d32f2f" stroke="#111" stroke-width="2"/>
+  <rect x="30" y="22" width="20" height="16" rx="8" fill="#fff" stroke="#111" stroke-width="2"/>
+  <ellipse cx="40" cy="30" rx="7" ry="5" fill="#fff"/>
+  <text x="70" y="35" font-size="22" font-family="Arial, sans-serif" fill="#d32f2f" font-weight="bold">Тиннівські</text>
+  <text x="70" y="52" font-size="16" font-family="Arial, sans-serif" fill="#111">ковбаси</text>
+</svg> 
