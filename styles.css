@@ -1302,4 +1302,23 @@ body {
     font-weight: 800;
     text-shadow: 0 2px 8px rgba(0,0,0,0.18), 0 0 2px #fff;
     letter-spacing: 0.5px;
+}
+
+.about-stats .stat-number {
+    color: #222 !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 2px #fff;
+    font-weight: 800;
+}
+
+.about-stats .stat-label {
+    color: #444 !important;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.about-stats .stat-item {
+    background: #fff;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 } 
