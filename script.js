@@ -304,4 +304,42 @@ scrollToTopBtn.addEventListener('mouseleave', function() {
   });
 })();
 
+// Анімація лічильника поставок
+function animateCounter() {
+    const counter = document.getElementById('wholesale-counter');
+    if (!counter) return;
+    
+    const target = 1250; // Цільове число поставок
+    const duration = 3000; // Тривалість анімації в мс
+    const step = target / (duration / 16); // 60 FPS
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        counter.textContent = Math.floor(current).toLocaleString();
+    }, 16);
+}
+
+// Запуск анімації лічильника при скролі
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounter();
+            counterObserver.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Спостерігаємо за лічильником
+document.addEventListener('DOMContentLoaded', () => {
+    const counter = document.getElementById('wholesale-counter');
+    if (counter) {
+        counterObserver.observe(counter);
+    }
+});
+
 console.log('М\'ясна Майстерня - веб-сайт завантажено успішно!'); 
