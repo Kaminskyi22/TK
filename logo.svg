@@ -1,3 +1,11 @@
-<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <text x="10" y="60" font-size="60" font-family="Montserrat, Arial Black, Arial, sans-serif" fill="#d32f2f" font-weight="bold" letter-spacing="2">ТК</text>
+<svg width="220" height="260" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <!-- Об'ємні контурні ТК -->
+    <text x="10" y="140" font-size="120" font-family="Arial Black, Arial, sans-serif" fill="none" stroke="#d32f2f" stroke-width="6" font-weight="900" letter-spacing="6">ТК</text>
+    <!-- ТИННІВСЬКІ -->
+    <text x="25" y="185" font-size="48" font-family="Montserrat, Arial, sans-serif" fill="#111" font-weight="700" letter-spacing="2">ТИННІВСЬКІ</text>
+    <!-- Червона плашка -->
+    <rect x="15" y="200" width="190" height="40" rx="4" fill="#d32f2f"/>
+    <text x="110" y="230" font-size="36" font-family="Montserrat, Arial, sans-serif" fill="#fff" font-weight="700" letter-spacing="6" text-anchor="middle">КОВБАСИ</text>
+  </g>
 </svg> 
