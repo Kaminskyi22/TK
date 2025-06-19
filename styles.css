@@ -119,20 +119,29 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(120deg, #fff 0%, #ffeaea 100%);
-    position: relative;
+    background: linear-gradient(120deg, #fff 0%, #fbe9e7 100%);
     min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.22);
+    background: radial-gradient(circle at 20% 40%, #ffe0e0 0%, transparent 70%);
+    opacity: 0.7;
     z-index: 1;
+    pointer-events: none;
+    animation: heroParallax 8s ease-in-out infinite alternate;
+}
+
+@keyframes heroParallax {
+    0% { background-position: 20% 40%; }
+    100% { background-position: 80% 60%; }
 }
 
 .hero-content {
@@ -169,22 +178,34 @@ body {
 
 .btn, .btn-primary, .btn-secondary {
     transition: all 0.25s cubic-bezier(.23,1.01,.32,1);
-}
-
-.btn-primary:hover, .btn-secondary:hover {
-    transform: translateY(-2px) scale(1.06);
-    box-shadow: 0 8px 24px rgba(211,47,47,0.12);
+    box-shadow: 0 4px 16px rgba(211,47,47,0.08);
+    border-radius: 40px;
+    font-weight: 700;
 }
 
 .btn-primary {
-    background: var(--primary-color);
-    color: white;
+    background: linear-gradient(90deg, #d32f2f 60%, #b71c1c 100%);
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #b71c1c 60%, #d32f2f 100%);
+    transform: translateY(-2px) scale(1.07);
+    box-shadow: 0 8px 32px rgba(211,47,47,0.18);
 }
 
 .btn-secondary {
-    background: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    background: #fff;
+    color: #d32f2f;
+    border: 2px solid #d32f2f;
+}
+
+.btn-secondary:hover {
+    background: #d32f2f;
+    color: #fff;
+    transform: translateY(-2px) scale(1.07);
+    box-shadow: 0 8px 32px rgba(211,47,47,0.18);
 }
 
 .hero-image img {
@@ -326,6 +347,7 @@ body {
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
+    loading: lazy;
 }
 
 .product-card:hover .product-image img {
@@ -636,4 +658,51 @@ body {
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Preloader styles */
+#preloader {
+    position: fixed;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+}
+
+.preloader-logo {
+    font-size: 3rem;
+    font-family: 'Arial Black', Arial, sans-serif;
+    color: #d32f2f;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    animation: preloaderBounce 1.2s infinite alternate;
+}
+
+@keyframes preloaderBounce {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15) rotate(-3deg); }
+}
+
+.navbar-nav a {
+    position: relative;
+    transition: color 0.2s;
+}
+
+.navbar-nav a::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0; right: 0; bottom: -4px;
+    height: 3px;
+    background: #d32f2f;
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(.23,1.01,.32,1);
+}
+
+.navbar-nav a:hover::after, .navbar-nav a.active::after {
+    transform: scaleX(1);
 } 
