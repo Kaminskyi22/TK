@@ -124,7 +124,7 @@
             <div class="carousel-dots"></div>
             <div class="hero-content">
                 <h1 class="hero-title">Традиційні ковбаси з любов'ю до якості</h1>
-                <p class="hero-subtitle">Більше 20 років ми створюємо найкращі ковбаси за старовинними рецептами з використанням сучасних технологій</p>
+                <p class="hero-subtitle">Більше 24 років ми створюємо найкращі ковбаси за старовинними рецептами з використанням сучасних технологій</p>
                 <div class="hero-buttons">
                     <a href="#products" class="btn btn-primary">Переглянути продукцію</a>
                     <a href="#about" class="btn btn-secondary">Дізнатися більше</a>
@@ -173,7 +173,7 @@
                 </div>
                 <div class="about-stats">
                     <div class="stat-item">
-                        <div class="stat-number">20+</div>
+                        <div class="stat-number" id="experience-years">24</div>
                         <div class="stat-label">років досвіду</div>
                     </div>
                     <div class="stat-item">
@@ -293,7 +293,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">⭐</div>
-                    <div class="stat-number" id="experience-counter">0</div>
+                    <div class="stat-number" id="experience-counter">24</div>
                     <div class="stat-label">років досвіду</div>
                 </div>
             </div>
@@ -366,7 +366,7 @@
                             </div>
                         </div>
                     </div>
-                    <p>Традиційні ковбаси з любов'ю до якості. Більше 20 років досвіду у м'ясній справі.</p>
+                    <p>Традиційні ковбаси з любов'ю до якості. Більше 24 років досвіду у м'ясній справі.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Швидкі посилання</h3>
@@ -398,6 +398,28 @@
     window.addEventListener('load', function() {
       document.getElementById('preloader').style.opacity = 0;
       setTimeout(function(){ document.getElementById('preloader').style.display = 'none'; }, 500);
+      
+      // Автоматичне оновлення років досвіду
+      function updateExperienceYears() {
+        const foundingDate = new Date('2001-06-22');
+        const currentDate = new Date();
+        const yearsDiff = currentDate.getFullYear() - foundingDate.getFullYear();
+        
+        // Перевіряємо чи вже минув день заснування в поточному році
+        const hasPassedAnniversary = currentDate.getMonth() > foundingDate.getMonth() || 
+                                    (currentDate.getMonth() === foundingDate.getMonth() && 
+                                     currentDate.getDate() >= foundingDate.getDate());
+        
+        const experienceYears = hasPassedAnniversary ? yearsDiff : yearsDiff - 1;
+        
+        // Оновлюємо всі елементи з роками досвіду
+        const experienceElements = document.querySelectorAll('#experience-years, #experience-counter');
+        experienceElements.forEach(element => {
+            element.textContent = experienceYears;
+        });
+      }
+      
+      updateExperienceYears();
     });
     </script>
 </body>
